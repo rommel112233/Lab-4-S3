@@ -1,0 +1,5 @@
+public class AreaAtencion{
+private string nombre;
+private PriorityQueue<Paciente> pacientesHeap;
+private int capacidadMaxima;
+public AreaAtencion
