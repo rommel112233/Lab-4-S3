@@ -63,6 +63,12 @@ historialCambios.push(descripcion);
 }
 
 public String obtenerUltimoCambio(){
+if(historialCambios.empty()){
+return null;
+}else{
+return historialCambios.pop();
+}
+}
 
 
 
