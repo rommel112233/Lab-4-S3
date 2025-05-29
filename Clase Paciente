@@ -1,8 +1,9 @@
-Import.java.util.Stacks;
+import.java.util.Stack;
+
 public class Paciente{
 private String nombre;
 private String apellido;
-private string ID;
+private String ID;
 private int categoria;
 private long tiempollegada;
 private String estado;
@@ -18,8 +19,8 @@ this.tiempollegada=tiempollegada;
 this.estado="en_espera";
 this.area=area;
 this.historialCambios=new Stack<>();
-
 }
+
 public String getNombre(){
 return nombre;
 }
