@@ -5,8 +5,9 @@ private int capacidadMaxima;
 public AreaAtencion(String nombre, int capacidadMaxima){
 this.nombre=nombre;
 this.capacidadMaxima=capacidadMaxima;
-this.pacientesHeap=new PriorityQueue<>(new Comparator<paciente>()){
-   
+this.pacientesHeap=new PriorityQueue<>(new Comparator<paciente>(){
+@Override
+public int comparar(
 
 
         // Comparador: menor categoría primero, y en caso de empate, mayor tiempo de espera
