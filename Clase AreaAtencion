@@ -1,5 +1,54 @@
 public class AreaAtencion{
-private string nombre;
+private String nombre;
 private PriorityQueue<Paciente> pacientesHeap;
 private int capacidadMaxima;
-public AreaAtencion
+public AreaAtencion(String nombre, int capacidadMaxima){
+this.nombre=nombre;
+this.capacidadMaxima=capacidadMaxima;
+this.pacientesHeap=new PriorityQueue<>(new Comparator<paciente>()){
+   
+
+
+        // Comparador: menor categoría primero, y en caso de empate, mayor tiempo de espera
+        this.pacientesHeap = new PriorityQueue<>(new Comparator<Paciente>() {
+            @Override
+            public int compare(Paciente p1, Paciente p2) {
+                if (p1.getCategoria() != p2.getCategoria()) {
+                    return Integer.compare(p1.getCategoria(), p2.getCategoria());
+                } else {
+                    return Long.compare(p2.tiempoEsperaActual(), p1.tiempoEsperaActual());
+                }
+            }
+        });
+    }
+
+  this.pacientesHeap = new PriorityQueue<>();  // No necesita Comparator porque Paciente implementa Comparable
+    }
+
+    public void ingresarPaciente(Paciente p) {
+        if (!estaSaturada()) {
+            pacientesHeap.offer(p);  // lo inserta en el heap manteniendo orden
+        } else {
+            System.out.println("Área " + nombre + " está saturada.");
+        }
+    }
+
+    public Paciente atenderPaciente() {
+        return pacientesHeap.poll(); // remueve y retorna el más prioritario
+    }
+
+    public boolean estaSaturada() {
+        return pacientesHeap.size() >= capacidadMaxima;
+    }
+
+    public List<Paciente> obtenerPacientesPorHeapSort() {
+        // Hacemos una copia y la convertimos en lista ordenada
+        List<Paciente> copia = new ArrayList<>(pacientesHeap);
+        Collections.sort(copia);  // Usa compareTo de Paciente
+        return copia;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+}
