@@ -27,7 +27,7 @@ return 0;
 });
 }
 
-punlic boolean estaSaturada(){
+public boolean estaSaturada(){
 int pacientesActuales= pacientesHeap.size();
 boolean resultado = pacientesActuales >= capacidadMaxima;
 return resultado;
