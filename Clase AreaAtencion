@@ -40,6 +40,18 @@ pacientesHeap.add(p);
 }
 
 public Paciente atenderPaciente(){
+return pacientesHeap.poll();
+}
+
+public List<Paciente>obtenerPacientesPorHeapSort(){
+PriorityQueue<Paciente> copia = new PriorityQueue<>(pacientesHeap);
+List<Pciente> ordenados = new Arraylist<>();
+while(!copia.isEmpty()){
+ordenados.add(copia.poll());
+}
+return ordenados;
+}
+
 
 
    
