@@ -45,7 +45,7 @@ return pacientesHeap.poll();
 
 public List<Paciente>obtenerPacientesPorHeapSort(){
 PriorityQueue<Paciente> copia = new PriorityQueue<>(pacientesHeap);
-List<Pciente> ordenados = new Arraylist<>();
+List<Paciente> ordenados = new Arraylist<>();
 while(!copia.isEmpty()){
 ordenados.add(copia.poll());
 }
