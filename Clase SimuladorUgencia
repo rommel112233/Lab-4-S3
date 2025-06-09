@@ -27,19 +27,31 @@ public class SimuladorUrgencia {
             }
 
             if (minutoActual % 15 == 0) {
-                Paciente atendido = hospital.atenderSiguiente();
-                if (atendido != null) {
-                    procesarEstadisticas(atendido, minutoActual, pacientesAtendidosPorCategoria,
+                Paciente forzado = atenderPacienteFueraDeTiempo(minutoActual);
+                if (forzado != null) {
+                    procesarEstadisticas(forzado, minutoActual, pacientesAtendidosPorCategoria,
                                          totalEsperaPorCategoria, pacientesFueraDeTiempo);
+                } else {
+                    Paciente atendido = hospital.atenderSiguiente();
+                    if (atendido != null) {
+                        procesarEstadisticas(atendido, minutoActual, pacientesAtendidosPorCategoria,
+                                             totalEsperaPorCategoria, pacientesFueraDeTiempo);
+                    }
                 }
             }
 
             if (nuevosDesdeUltimaAtencion >= 3) {
                 for (int i = 0; i < 2; i++) {
-                    Paciente atendido = hospital.atenderSiguiente();
-                    if (atendido != null) {
-                        procesarEstadisticas(atendido, minutoActual, pacientesAtendidosPorCategoria,
+                    Paciente forzado = atenderPacienteFueraDeTiempo(minutoActual);
+                    if (forzado != null) {
+                        procesarEstadisticas(forzado, minutoActual, pacientesAtendidosPorCategoria,
                                              totalEsperaPorCategoria, pacientesFueraDeTiempo);
+                    } else {
+                        Paciente atendido = hospital.atenderSiguiente();
+                        if (atendido != null) {
+                            procesarEstadisticas(atendido, minutoActual, pacientesAtendidosPorCategoria,
+                                                 totalEsperaPorCategoria, pacientesFueraDeTiempo);
+                        }
                     }
                 }
                 nuevosDesdeUltimaAtencion = 0;
@@ -66,6 +78,30 @@ public class SimuladorUrgencia {
         }
     }
 
+    private Paciente atenderPacienteFueraDeTiempo(int minutoActual) {
+        for (Paciente p : new ArrayList<>(hospital.getColaAtencion())) {
+            long tiempoEspera = (minutoActual * 60 - p.getTiempollegada()) / 60;
+            if (pacienteFueraDeTiempo(p.getCategoria(), tiempoEspera)) {
+                hospital.getColaAtencion().remove(p);
+                p.setEstado("atendido");
+                p.registrarCambio("Atención forzada por exceso de espera");
+                hospital.getPacientesAtendidos().add(p);
+                return p;
+            }
+        }
+        return null;
+    }
+
+    private boolean pacienteFueraDeTiempo(int categoria, long tiempoEspera) {
+        switch (categoria) {
+            case 1: return tiempoEspera > 0;
+            case 2: return tiempoEspera > 30;
+            case 3: return tiempoEspera > 90;
+            case 4: return tiempoEspera > 180;
+            default: return false;
+        }
+    }
+
     private void procesarEstadisticas(Paciente p, int minutoActual,
                                        Map<Integer, Integer> cantidad,
                                        Map<Integer, Long> totalEspera,
@@ -78,15 +114,7 @@ public class SimuladorUrgencia {
         cantidad.put(cat, cantidad.getOrDefault(cat, 0) + 1);
         totalEspera.put(cat, totalEspera.getOrDefault(cat, 0L) + tiempoEspera);
 
-        boolean fuera = false;
-        if ((cat == 1 && tiempoEspera > 0) ||
-            (cat == 2 && tiempoEspera > 30) ||
-            (cat == 3 && tiempoEspera > 90) ||
-            (cat == 4 && tiempoEspera > 180)) {
-            fuera = true;
-        }
-
-        if (fuera) {
+        if (pacienteFueraDeTiempo(cat, tiempoEspera)) {
             fueraDeTiempo.add(p);
         }
     }
