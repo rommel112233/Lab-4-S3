@@ -42,6 +42,8 @@ return estado;
 public String getArea(){
 return area;
 }
+public Stack<String> getHistorial() {
+    return historialCambios;
 public void setCategoria(int categoria){
 this.categoria=categoria;
 }
