@@ -19,6 +19,7 @@ Latorre " , " Gimenez " , " Rossel " , " Astorga " , " Perez " , "
 Garcia " , " Chacon " , " Moran " , " Flores " , " Olivares " , "
 Lopez " , " Chavez " , " Mujica " , " Rodriguez " , " Martinez " ,
 " Parra " , " Gomez " , " Vazquez " , " Santos " , " Pena " };
+    private static final String[] areas = { "SAPU", "urgencia_adulto", "urgencia_infantil" };
     private static final Random rand = new Random();
     private static int contadorID = 1;
 
@@ -33,7 +34,7 @@ Lopez " , " Chavez " , " Mujica " , " Rodriguez " , " Martinez " ,
             int categoria = generarCategoria();
             String area = areas[rand.nextInt(areas.length)];
             long llegada_i = timestampInicio + (i * 600);
-            Paciente p = new Paciente(nombre, apellido, id, categoria, llegada_i, "en_espera", area);
+            Paciente p = new Paciente(nombre, apellido, id, categoria, llegada_i, area);
             pacientes.add(p);
         }
         return pacientes;
