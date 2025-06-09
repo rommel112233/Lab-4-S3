@@ -1,4 +1,4 @@
-import java.util.Stack;
+import java.util.*;
 
 public class Paciente{
 private String nombre;
