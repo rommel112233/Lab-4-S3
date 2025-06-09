@@ -12,13 +12,13 @@ Emilio " , " Marta " , " Virginia " , " Lucila " , " Elena " , "
 Jose " , " Francisca " , " Jesus " , " Benjamin " , " Rommel " , "
 Isabel " , " Carmen " , " Tomasa " , " Clara " , " Amanda " , "
 Beatriz " , " Daniela " , " Leopoldo " , " Valentin "};
-    private static final String[] apellidos = { Riquelme " , "
+    private static final String[] apellidos = { " Riquelme " , "
 Pereira " , " Briones " , " Loyola " , " Aranguiz " , " Calderon "
 , " Gonzalez " , " Bustamante " , " Sanchez " , " Vargas " , "
 Latorre " , " Gimenez " , " Rossel " , " Astorga " , " Perez " , "
 Garcia " , " Chacon " , " Moran " , " Flores " , " Olivares " , "
 Lopez " , " Chavez " , " Mujica " , " Rodriguez " , " Martinez " ,
-" Parra " , " Gomez " , " Vazquez " , " Santos " , " Pena };
+" Parra " , " Gomez " , " Vazquez " , " Santos " , " Pena " };
     private static final Random rand = new Random();
     private static int contadorID = 1;
 
