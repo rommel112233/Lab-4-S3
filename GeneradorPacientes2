@@ -1,0 +1,49 @@
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.util.*;
+
+public class GeneradorPacientes {
+    private static final String[] nombres = {"Pedro","Lucía","Carlos","Elena","Miguel","Sofía","Martín","Diego","Rommel","Isabel","Isaac","Nicolás"};
+    private static final String[] apellidos = {"González","Muñoz","Rojas","Díaz","Torres","Ramírez","Silva","Castillo","Peña","Lonco"};
+    private static final String[] areas = {"SAPU","urgencia_adulto","urgencia_infantil"};
+    private static final Random rand = new Random();
+    private static int contadorID = 1;
+
+    public static List<Paciente> generarPacientes(int cantidad) {
+        List<Paciente> pacientes = new ArrayList<>();
+        long timestampInicio = LocalDateTime.of(2025, 1, 1, 0, 0).toEpochSecond(ZoneOffset.UTC);
+
+        for (int i = 0; i < cantidad; i++) {
+            String nombre = nombres[rand.nextInt(nombres.length)];
+            String apellido = apellidos[rand.nextInt(apellidos.length)];
+            String id = "P" + String.format("%05d", contadorID++);
+            int categoria = generarCategoria();
+            String area = areas[rand.nextInt(AREAS.length)];
+            long llegada_i = timestampInicio + (i * 600);
+            Paciente p = new Paciente(nombre, apellido, id, categoria, llegada_i, "en_espera", area);
+            pacientes.add(p);
+        }
+        return pacientes;
+    }
+
+    private static int generarCategoria() {
+        int valor = rand.nextInt(100);
+        if (valor < 10) return 1;        
+        else if (valor < 25) return 2;  
+        else if (valor < 43) return 3;  
+        else if (valor < 70) return 4;   
+        else return 5;                   
+    }
+
+    public static void guardarPacientesEnArchivo(List<Paciente> pacientes, String nombreArchivo) {
+        try (FileWriter writer = new FileWriter(nombreArchivo)) {
+            for (Paciente p : pacientes) {
+                writer.write(p.toString() + "\n");
+            }
+        } catch (IOException e) {
+            System.err.println("Error al escribir el archivo: " + e.getMessage());
+        }
+    }
+}
