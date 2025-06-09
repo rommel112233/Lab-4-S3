@@ -5,9 +5,20 @@ import java.time.ZoneOffset;
 import java.util.*;
 
 public class GeneradorPacientes {
-    private static final String[] nombres = {"Pedro","Lucía","Carlos","Elena","Miguel","Sofía","Martín","Diego","Rommel","Isabel","Isaac","Nicolás"};
-    private static final String[] apellidos = {"González","Muñoz","Rojas","Díaz","Torres","Ramírez","Silva","Castillo","Peña","Lonco"};
-    private static final String[] areas = {"SAPU","urgencia_adulto","urgencia_infantil"};
+    private static final String[] nombres = { " Sofia " , " Diego "
+, " Camila " , " Christian " , " Maite " , " Jorge " , " Juan " ,"
+Maximiliano " , " Valentina " , " Catalina " , " Patricia " , "
+Emilio " , " Marta " , " Virginia " , " Lucila " , " Elena " , "
+Jose " , " Francisca " , " Jesus " , " Benjamin " , " Rommel " , "
+Isabel " , " Carmen " , " Tomasa " , " Clara " , " Amanda " , "
+Beatriz " , " Daniela " , " Leopoldo " , " Valentin "};
+    private static final String[] apellidos = { Riquelme " , "
+Pereira " , " Briones " , " Loyola " , " Aranguiz " , " Calderon "
+, " Gonzalez " , " Bustamante " , " Sanchez " , " Vargas " , "
+Latorre " , " Gimenez " , " Rossel " , " Astorga " , " Perez " , "
+Garcia " , " Chacon " , " Moran " , " Flores " , " Olivares " , "
+Lopez " , " Chavez " , " Mujica " , " Rodriguez " , " Martinez " ,
+" Parra " , " Gomez " , " Vazquez " , " Santos " , " Pena };
     private static final Random rand = new Random();
     private static int contadorID = 1;
 
