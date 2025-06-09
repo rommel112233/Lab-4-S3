@@ -31,7 +31,7 @@ Lopez " , " Chavez " , " Mujica " , " Rodriguez " , " Martinez " ,
             String apellido = apellidos[rand.nextInt(apellidos.length)];
             String id = "P" + String.format("%05d", contadorID++);
             int categoria = generarCategoria();
-            String area = areas[rand.nextInt(AREAS.length)];
+            String area = areas[rand.nextInt(areas.length)];
             long llegada_i = timestampInicio + (i * 600);
             Paciente p = new Paciente(nombre, apellido, id, categoria, llegada_i, "en_espera", area);
             pacientes.add(p);
