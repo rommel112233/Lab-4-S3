@@ -1,0 +1,92 @@
+import java.util.*;
+
+public class Hospital {
+    private Map<String, Paciente> pacientesTotales;
+    private PriorityQueue<Paciente> colaAtencion;
+    private Map<String, AreaAtencion> areasAtencion;
+    private List<Paciente> pacientesAtendidos;
+
+    public Hospital() {
+        this.pacientesTotales = new HashMap<>();
+        this.pacientesAtendidos = new ArrayList<>();
+
+        this.colaAtencion = new PriorityQueue<>(new Comparator<Paciente>()
+                                                    {
+            @Override
+            public int compare(Paciente A1, Paciente A2)
+                                                    {
+                if (A1.getCategoria() != A2.getCategoria())
+                                                    {
+                    return Integer.compare(A1.getCategoria(), A2.getCategoria());
+                } else
+                                                    {
+                    return Long.compare(A2.tiempoEsperaActual(), A1.tiempoEsperaActual());
+                }
+            }
+        });
+
+        this.areasAtencion = new HashMap<>();
+        areasAtencion.put("SAPU", new AreaAtencion("SAPU", 30));
+        areasAtencion.put("urgencia_adulto", new AreaAtencion("urgencia_adulto", 30));
+        areasAtencion.put("urgencia_infantil", new AreaAtencion("urgencia_infantil", 30));
+    }
+
+    public void registrarPaciente(Paciente p) 
+{
+        pacientesTotales.put(p.getId(), p);
+        colaAtencion.add(p);
+
+        AreaAtencion area = areasAtencion.get(p.getArea());
+        if (area != null && !area.estaSaturada())
+{
+            area.ingresarPaciente(p);
+        }
+
+        p.registrarCambio("Paciente registrado con categoría " + p.getCategoria() + " en área " + p.getArea());
+    }
+
+    public void reasignarCategoria(String id, int nuevaCategoria)
+{
+        Paciente p = pacientesTotales.get(id);
+        if (p != null) {
+            p.setCategoria(nuevaCategoria);
+            p.registrarCambio("Categoría actualizada a " + nuevaCategoria);
+        }
+    }
+
+    public Paciente atenderSiguiente()
+{
+        Paciente siguiente = colaAtencion.poll();
+        if (siguiente != null) 
+{
+            siguiente.setEstado("atendido");
+            siguiente.registrarCambio("Paciente atendido");
+            pacientesAtendidos.add(siguiente);
+        }
+        return siguiente;
+    }
+
+    public List<Paciente> obtenerPacientesPorCategoria(int categoria)
+{
+        List<Paciente> resultado = new ArrayList<>();
+        for (Paciente p : colaAtencion)
+{
+            if (p.getCategoria() == categoria) 
+{
+                resultado.add(p);
+            }
+        }
+        return resultado;
+    }
+
+    public AreaAtencion obtenerArea(String nombre)
+
+{
+        return areasAtencion.get(nombre);
+    }
+
+    public List<Paciente> getPacientesAtendidos() { return pacientesAtendidos; }
+    public Map<String, Paciente> getPacientesTotales() { return pacientesTotales; }
+    public PriorityQueue<Paciente> getColaAtencion() { return colaAtencion; }
+    public Map<String, AreaAtencion> getAreasAtencion() { return areasAtencion; }
+}
