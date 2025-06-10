@@ -21,6 +21,9 @@ this.area=area;
 this.historialCambios=new Stack<>();
 }
 
+public long tiempoEsperaActual(){
+return (System.currentTimeMillis()/1000-tiempoLlegada)/60;
+}
 public String getNombre(){
 return nombre;
 }
@@ -54,10 +57,6 @@ this.estado=estado;
 public void setArea(String area){
 this.area=area;
 }
-
-public long tiempoEsperaActual(){
-        return (System.currentTimeMillis()/1000-tiempoLlegada)/60;
-    }
 
 public void registrarCambio(String descripcion){
 historialCambios.push(descripcion);
