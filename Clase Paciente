@@ -1,73 +1,55 @@
 import java.util.*;
 
-public class Paciente{
-private String nombre;
-private String apellido;
-private String ID;
-private int categoria;
-private long tiempollegada;
-private String estado;
-private String area;
-private Stack<String> historialCambios;
+class Paciente {
+    private String nombre;
+    private String apellido;
+    private String ID;
+    private int categoria;
+    private long tiempollegada;
+    private String estado;
+    private String area;
+    private Stack<String> historialCambios;
 
-public Paciente(String nombre, String apellido, String ID, int categoria, long tiempollegada, String area){
-this.nombre=nombre;
-this.apellido=apellido;
-this.ID=ID;
-this.categoria=categoria;
-this.tiempollegada=tiempollegada;
-this.estado="en_espera";
-this.area=area;
-this.historialCambios=new Stack<>();
-}
+    public Paciente(String nombre, String apellido, String ID, int categoria, long tiempollegada, String area) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.ID = ID;
+        this.categoria = categoria;
+        this.tiempollegada = tiempollegada;
+        this.estado = "en_espera";
+        this.area = area;
+        this.historialCambios = new Stack<>();
+    }
 
-public long tiempoEsperaActual(){
-return (System.currentTimeMillis()/1000-tiempoLlegada)/60;
-}
-public String getNombre(){
-return nombre;
-}
-public String getApellido(){
-return apellido;
-}
-public String getId(){
-return ID;
-}
-public int getCategoria(){
-return categoria;
-}
-public long getTiempollegada(){
-return tiempollegada;
-}
-public String getEstado(){
-return estado;
-}
-public String getArea(){
-return area;
-}
-public Stack<String> getHistorial() {
-    return historialCambios;
-public void setCategoria(int categoria){
-this.categoria=categoria;
-}
-}
-public void setEstado(String estado){
-this.estado=estado;
-}
-public void setArea(String area){
-this.area=area;
-}
+    public long tiempoEsperaActual() {
+        return (System.currentTimeMillis() / 1000 - tiempollegada) / 60;
+    }
 
-public void registrarCambio(String descripcion){
-historialCambios.push(descripcion);
-}
+    public String getNombre() { return nombre; }
+    public String getApellido() { return apellido; }
+    public String getId() { return ID; }
+    public int getCategoria() { return categoria; }
+    public long getTiempollegada() { return tiempollegada; }
+    public String getEstado() { return estado; }
+    public String getArea() { return area; }
+    public Stack<String> getHistorial() { return historialCambios; }
 
-public String obtenerUltimoCambio(){
-if(historialCambios.empty()){
-return null;
-}else{
-return historialCambios.pop();
-}
+    public void setCategoria(int categoria) { this.categoria = categoria; }
+    public void setEstado(String estado) { this.estado = estado; }
+    public void setArea(String area) { this.area = area; }
+
+    public void registrarCambio(String descripcion) {
+        historialCambios.push(descripcion);
+    }
+
+    public String obtenerUltimoCambio() {
+        return historialCambios.empty() ? null : historialCambios.pop();
+    }
+
+    @Override
+    public String toString() {
+        return ID + "," + nombre + "," + apellido + "," + categoria + "," + tiempollegada + "," + area;
+    }
 }
 
 
