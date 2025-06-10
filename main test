@@ -2,13 +2,10 @@ import java.util.*;
 
 public class  Main {
     public static void main(String[] args) {
-        // Generar pacientes para 24 horas (1 cada 10 min = 144 pacientes)
         List<Paciente> pacientes = GeneradorPacientes.generarPacientes(144);
 
-        // Opcional: guardar en archivo
         GeneradorPacientes.guardarPacientesEnArchivo(pacientes, "Pacientes_24h.txt");
 
-        // Crear simulador y correr la simulación
         SimuladorUrgencia simulador = new SimuladorUrgencia(pacientes);
         simulador.simular(144); // Se simulan 144 pacientes en total
     }
